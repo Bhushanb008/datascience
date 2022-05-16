@@ -1,0 +1,88 @@
+from google.colab import files
+myupload = files.upload()
+ 
+
+import pandas as pd
+ import numpy as np
+ import io
+ from matplotlib import pyplot as pyplot
+ import seaborn as sns
+
+
+df=pd.read_csv(io.BytesIO(myupload['student-por (1).csv']))
+print(df)
+
+df.head()
+
+df.describe()
+
+df.corr()
+
+df.isnull().sum()
+
+df[df.notnull()]
+
+df = df.dropna()
+df
+
+#identify outerliers
+
+sns.histplot(df.age)
+
+#remove outerliers
+
+df.age.mean()
+
+df.age.std()
+
+
+upper_limit = df.age.mean() + 3*df.age.std()
+lower_limit = df.age.mean() - 3*df.age.std()
+
+#this is the outerliers
+df[(df.age>upper_limit) | (df.age<lower_limit)]
+
+df_age = df[(df.age<upper_limit) & (df.age>lower_limit)]
+
+df_age.age.hist()
+
+#using Z score
+
+df['zscore'] = (df.age - df.age.mean()) / (df.age.std())
+
+df.zscore
+
+#removed outerlier
+
+df_zscore = df[(df.zscore>-3) & (df.zscore<3)]
+df.zscore
+
+#IQR
+
+Q1=df.age.quantile(0.25)
+Q3=df.age.quantile(0.75)
+
+IQR = Q3-Q1
+IQR
+
+upper_limit = Q3 + 1.5*IQR
+lower_limit = Q3 - 1.5*IQR
+upper_limit
+lower_limit
+
+
+df[(df.age<upper_limit) & (df.age>lower_limit)]
+
+df.age.hist()
+
+df.age
+
+#scaling the datapoint
+
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+df_zscore.age = scaler.fit_transform(df_zscore[['age']])
+df_zscore.age
+
+
+df_zscore.age.hist()

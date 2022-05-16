@@ -1,0 +1,40 @@
+import pandas as pd
+import numpy as np
+
+
+df = pd.read_csv(r"C:\Users\shubham\Desktop\DS&BDA Practicals\Assi1\StudentsPerformance.csv")
+print(df)
+
+
+df.describe()
+print("dim",df.ndim)
+
+
+
+print("dim", df.size)
+print("dim", df.shape)
+
+
+df.isnull()
+print(df['gender'])
+print(df[1:3])
+
+
+
+print(df.dropna())
+
+
+
+df.gender.str.isdigit()
+print(df.gender.str.isdigit())
+df.gender.str.isalpha()
+print(df.gender.str.isalpha())
+df.gender.str.isnumeric()
+print(df.gender.str.isnumeric())
+df=pd.get_dummies(df['gender'])
+print(df)
+df.head()
+print(df.head())
+df.tail()
+print(df.tail())
+

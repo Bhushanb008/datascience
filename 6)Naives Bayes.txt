@@ -1,0 +1,85 @@
+import numpy as np
+import pandas as pd
+
+
+
+from google.colab import files
+myupload = files.upload()
+
+
+
+df = pd.read_csv("iris-flower-dataset.csv",names=['sepal length (cm)','sepal width (cm)','petal length (cm)','petal width (cm)','Species'])
+df.head()
+
+
+df.head()
+
+
+df.isnull()
+
+
+df.info()
+
+
+df.shape
+
+
+df.isnull().sum()
+
+
+from sklearn.preprocessing import LabelEncoder
+label=LabelEncoder()
+df['Species']=label.fit_transform(df['Species'])
+df.head()
+
+
+x = df.drop('Species',axis='columns')
+y=df[['Species']]
+
+
+
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB,MultinomialNB
+
+
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.1)
+len(x_train),len(x_test),len(y_train),len(y)
+
+
+model = GaussianNB()
+model.fit(x_train,y_train)
+
+
+
+from sklearn.metrics import accuracy_score,confusion_matrix,classification_report,precision_score,recall_score
+y_pred=model.predict(x_test)
+cm=confusion_matrix(y_test,y_pred)
+
+accuracy = accuracy_score(y_test,y_pred)
+print("accuracy: ",accuracy)
+
+
+
+import seaborn as sns
+sns.heatmap(cm,annot=True,cmap='viridis')
+
+
+
+cm=confusion_matrix(y_test,y_pred)
+cm
+
+
+
+cr=classification_report(y_test,y_pred)
+print(cr)
+
+
+
+pre=precision_score(y_test,y_pred,average='micro')
+print(pre)
+
+
+
+recall=recall_score(y_test,y_pred,average='micro')
+print(recall)
+

@@ -1,0 +1,84 @@
+from google.colab import files
+myupload = files.upload()
+
+
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings("ignore")
+
+
+
+df=pd.read_csv("Social_Network_Ads.csv")
+df.head()
+
+
+
+df.head()
+
+
+df.isnull()
+
+
+df.isnull().sum()
+
+
+df.info()
+
+
+df.corr()
+
+
+#correlation
+plt.figure(figsize=(12,6))
+sns.heatmap(df.corr(),annot=True,cmap='viridis')
+
+
+
+cols_list=df.columns.to_list()
+cols_list
+
+
+x=df[["User ID","Age"]]
+x
+
+
+
+y=df[["EstimatedSalary"]]
+y
+
+
+
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=1/3,random_state=0)
+print("length of x: ",len(x))
+print("length of y: ",len(y))
+print("length of x train: ",len(x_train))
+print("length of y train: ",len(y_train))
+print("length of x test: ",len(x_test))
+print("length of y test: ",len(y_test))
+
+
+
+from sklearn.linear_model import LogisticRegression
+regresion = LogisticRegression()
+regresion.fit(x_train,y_train)
+y_predt = regresion.predict(x_test)
+print("Accuracy scores of logistic Regression: ",regresion.score(x_train,y_train))
+
+
+
+from sklearn.metrics import accuracy_score,confusion_matrix,classification_report,precision_score,recall_score
+pre=precision_score(y_test,y_predt,average='micro')
+print(pre)
+
+
+
+recall=recall_score(y_test,y_predt,average='micro')
+print(recall)
+
+
+cm=confusion_matrix(y_test,y_predt)
+cm

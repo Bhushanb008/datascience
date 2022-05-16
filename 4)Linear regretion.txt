@@ -1,0 +1,74 @@
+from google.colab import files
+myupload = files.upload()
+
+
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings("ignore")
+
+
+df = pd.read_csv("Boston.csv")
+df.head()
+
+
+df = df.drop(['Unnamed: 0'],axis=1)
+df.head()
+
+
+df.shape
+
+
+df.info()
+
+
+df.corr()
+
+
+#correlation
+plt.figure(figsize=(12,6))
+sns.heatmap(df.corr(),annot=True,cmap='viridis')
+
+
+#statistiacl info
+df.describe
+
+
+#checking for null value
+df.isnull().sum()
+
+
+
+cols_list = df.columns.to_list()
+cols_list
+
+
+x=df[["crim","lstat"]]
+x
+
+
+
+y=df[['medv']]
+y.head()
+
+
+#split data into training and testing phase
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=1/3,random_state=0)
+print("length of x: ",len(x))
+print("length of y: ",len(y))
+print("Length of x train: ",len(x_train))
+print("Length of y train: ",len(y_train))
+print("Length of x test: ",len(x_test))
+print("Length of y test: ",len(y_test))
+
+
+
+
+from sklearn.linear_model import LinearRegression
+regresion = LinearRegression().fit(x_train,y_train)
+y_predt = regresion.predict(x_test)
+print("Accuracy scores of linearRegression: ",regresion.score(x_train,y_train))
+

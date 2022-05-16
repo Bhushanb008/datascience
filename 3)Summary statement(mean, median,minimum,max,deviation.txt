@@ -1,0 +1,85 @@
+import pandas as pd
+import seaborn as sns
+from sklearn.datasets import load_iris
+dataset = load_iris()
+
+dir
+
+df = pd.DataFrame(data=dataset.data,columns=dataset.feature_names)
+df.head(100)
+
+df['target'] = dataset.target
+
+df.head()
+
+df.columns
+
+import statistics
+
+print(f"Sepal length mean: {statistics.mean(df['sepal length (cm)'])}")
+print(f"Sepal width mean: {statistics.mean(df['sepal width (cm)'])}")
+print(f"petal length mean: {statistics.mean(df['petal length (cm)'])}")
+print(f"petal width mean: {statistics.mean(df['petal width (cm)'])}")
+
+
+print(f"Sepal length median: {statistics.median(df['sepal length (cm)'])}")
+print(f"Sepal width median: {statistics.median(df['sepal width (cm)'])}")
+print(f"petal length median: {statistics.median(df['petal length (cm)'])}")
+print(f"petal width median: {statistics.median(df['petal width (cm)'])}")
+
+
+print(f"Sepal length mode: {statistics.mode(df['sepal length (cm)'])}")
+print(f"Sepal width mode: {statistics.mode(df['sepal width (cm)'])}")
+print(f"petal length mode: {statistics.median(df['petal length (cm)'])}")
+print(f"petal width mode: {statistics.median(df['petal width (cm)'])}")
+
+
+print(f"Sepal length standard deviation: {statistics.stdev(df['sepal length (cm)'])}")
+print(f"Sepal width standard deviation: {statistics.stdev(df['sepal width (cm)'])}")
+print(f"petal length standard deviation: {statistics.stdev(df['petal length (cm)'])}")
+print(f"petal width standard deviation: {statistics.stdev(df['petal width (cm)'])}")
+
+
+df.groupby('target')[['sepal length (cm)']].mean()
+
+
+df.groupby('target')[['sepal width (cm)']].mean()
+
+
+df.groupby('target')[['petal length (cm)']].mean()
+
+
+df.groupby('target')[['petal width (cm)']].mean()
+
+
+df.groupby('target')[['sepal length (cm)']].median()
+
+
+df.groupby('target')[['sepal width (cm)']].median()
+
+
+df.groupby('target')[['petal length (cm)']].median()
+
+
+df.groupby('target')[['petal width (cm)']].median()
+
+
+df.groupby('target')[['sepal length (cm)']].std()
+
+
+df.groupby('target')[['sepal width (cm)']].std()
+
+
+df.groupby('target')[['petal length (cm)']].std()
+
+
+df.groupby('target')[['petal width (cm)']].std()
+
+
+my_df = df.corr().round(2)
+
+
+import matplotlib.pyplot as plt
+plt.figure(figsize=(12,6))
+sns.heatmap(data = my_df,annot=True)
+

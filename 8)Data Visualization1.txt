@@ -1,0 +1,45 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn  as sns
+
+
+
+df=sns.load_dataset('titanic')
+df.head()
+
+
+
+df.columns
+#Index(['survived','pclass','sex','age','sibsp','parch','fare','embarked','class','who','adult_male','deck','embark_town','alive0','alone'],dtype='object')
+
+
+
+sns.histplot(df['fare'],kde=False)
+plt.show()
+
+
+
+sns.histplot(df['fare'],bins=10)
+plt.show()
+
+
+
+#mutual distribution
+sns.jointplot(df['age'],df['fare'])
+
+
+
+sns.jointplot(x='age',y='fare',data=df,kind='hex')
+
+
+sns.barplot(x='sex',y='age',data=df)
+
+
+sns.barplot(x='sex',y='age',data=df,estimator=np.std)
+
+
+sns.countplot(x='sex',data=df)
+
+
+sns.boxplot(x='sex',y='age',data=df)
